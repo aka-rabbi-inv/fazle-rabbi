@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Converter | Fazle Rabbi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background 1s ease; background-size: cover; background-position: center; min-height: 100vh; }
+        .glass { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="flex items-center justify-center p-6 text-white">
+
+    <div class="w-[700px]">
+
+        <div class="min-h-screen flex flex-col items-center justify-center p-4">
+            <div class="glass rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div class="text-white/90 mb-8 italic flex flex-wrap items-center gap-2">
+                    <span>"What time is it in</span>
+                    <select id="city-select" class="bg-white/10 border-b border-white/40 px-1 outline-none cursor-pointer hover:text-white transition italic font-medium">
+                        <option value="Asia/Dhaka" class="text-slate-900" selected>Dhaka</option>
+                        <option value="America/New_York" class="text-slate-900">New York</option>
+                        <option value="America/Los_Angeles" class="text-slate-900">Los Angeles</option>
+                        <option value="Asia/Singapore" class="text-slate-900">Singapore</option>
+                        <option value="Africa/Lagos" class="text-slate-900">Lagos</option>
+                        <option value="Asia/Dubai" class="text-slate-900">Dubai</option>
+                        <option value="Australia/Sydney" class="text-slate-900">Sydney</option>
+                        <option value="Europe/London" class="text-slate-900">London</option>
+                        <option value="Europe/Paris" class="text-slate-900">Paris</option>
+                        <option value="Asia/Tokyo" class="text-slate-900">Tokyo</option>
+                        <option value="Europe/Moscow" class="text-slate-900">Moscow</option>
+                    </select>
+                    <span>when it is..."</span>
+                </div>
+                
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2 opacity-80 uppercase tracking-wider">Your Local Time</label>
+                        <input type="datetime-local" id="local-input" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 outline-none focus:border-white/50 transition">
+                    </div>
+
+                    <a id="booking-link" href="https://calendar.google.com/calendar/u/0/r/eventedit?" target="_blank" class="block w-full bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 text-center py-3 rounded-xl font-semibold transition">
+                        <i class="far fa-calendar-alt mr-2"></i> Schedule at This Time
+                    </a>
+                    <p class="text-[10px] mt-2 text-center opacity-70">Powered by Google Calendar</p>
+
+
+                    <div class="flex justify-center">
+                        <div class="h-8 w-px bg-white/20"></div>
+                    </div>
+
+                    <div class="bg-white/5 rounded-2xl p-8 text-center border border-white/10">
+                        <div id="target-time" class="text-3xl md:text-4xl font-bold">--:--</div>
+                        <p id="target-label" class="text-sm mt-2 font-medium opacity-90"></p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="index.html" class="inline-flex items-center gap-2 mb-8 text-white/70 hover:text-white transition">
+                <div class="mt-8 text-black text-center text-sm opacity-50">
+                    Fazle Rabbi • Software Engineer
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('local-input');
+        const citySelect = document.getElementById('city-select');
+        const targetDisplay = document.getElementById('target-time');
+        const targetLabel = document.getElementById('target-label');
+        const bookingLink = document.getElementById('booking-link');
+        const body = document.body;
+
+        // Set default to now
+        const now = new Date();
+        const offset = now.getTimezoneOffset() * 60000;
+        const localISOTime = (new Date(Date.now() - offset)).toISOString().slice(0, 16);
+        input.value = localISOTime;
+
+        function updateConversion() {
+            if (!input.value) return;
+
+            const selectedDate = new Date(input.value);
+            const targetTimeZone = citySelect.value;
+            const cityName = citySelect.options[citySelect.selectedIndex].text;
+            
+            // Format for Target City
+            const targetOptions = { 
+                timeZone: targetTimeZone, 
+                hour12: true, 
+                hour: '2-digit', 
+                minute: '2-digit',
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            };
+            
+            const targetTimeStr = new Intl.DateTimeFormat('en-US', targetOptions).format(selectedDate);
+            targetDisplay.textContent = targetTimeStr;
+
+            // Background logic based on Target City hour
+            const targetHour = parseInt(new Intl.DateTimeFormat('en-US', { 
+                timeZone: targetTimeZone, 
+                hour: '2-digit', 
+                hour12: false 
+            }).format(selectedDate));
+
+            let bgImg = '';
+            let statusText = '';
+
+            if (targetHour >= 5 && targetHour < 8) {
+                bgImg = 'url("https://images.unsplash.com/photo-1642019247215-639093b12ded?auto=format&fit=crop&w=1600&q=80")';
+                statusText = `Sunrise in ${cityName} 🌅`;
+            } else if (targetHour >= 8 && targetHour < 17) {
+                bgImg = 'url("https://images.unsplash.com/photo-1744080213179-d4e58780ec5a?auto=format&fit=crop&w=1600&q=80")';
+                statusText = `Day time in ${cityName} ☀️`;
+            } else if (targetHour >= 17 && targetHour < 20) {
+                bgImg = 'url("https://images.unsplash.com/photo-1629818985490-d161fc7c11b3?auto=format&fit=crop&w=1600&q=80")';
+                statusText = `Sunset in ${cityName} 🌇`;
+            } else {
+                bgImg = 'url("https://images.unsplash.com/photo-1616400557946-8a556f8809d7?auto=format&fit=crop&w=1600&q=80")';
+                statusText = `Night time in ${cityName} 🌙`;
+            }
+
+            body.style.backgroundImage = bgImg;
+            targetLabel.textContent = statusText;
+
+            // Update Booking Link with UTC dates (1-hour duration)
+            const startUTC = selectedDate.toISOString().replace(/[:\-]|\.\d{3}/g, '');
+            const endUTC = new Date(selectedDate.getTime() + 3600000).toISOString().replace(/[:\-]|\.\d{3}/g, '');
+            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}`;
+        }
+
+        input.addEventListener('change', updateConversion);
+        citySelect.addEventListener('change', updateConversion);
+        updateConversion();
+    </script>
+</body>
+</html>

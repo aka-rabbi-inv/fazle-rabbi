@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazle Rabbi | Software Engineer III</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .section-heading { position: relative; display: inline-block; }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 2px;
+            background: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <img src="src/fazle.jpg" alt="Profile Thumbnail" class="w-10 h-10 rounded-full object-cover">
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
+                <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+                <a href="#education" class="hover:text-blue-600 transition">Education</a>
+                <a href="time.html" class="hover:text-blue-600 transition font-bold text-blue-500">Book Time</a>
+            </div>
+            <a href="mailto:akafazlerabbi@gmail.com" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">Contact Me</a>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 md:py-24">
+        
+        <!-- Hero Section -->
+        <section class="mb-20 grid md:grid-cols-3 gap-12 items-center">
+            <div class="md:col-span-2">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-slate-900">Fazle Rabbi</h1>
+                <h2 class="text-xl md:text-2xl text-slate-600 mb-8 font-medium">Software Engineer III @ <span class="text-blue-600">Invisible Technologies</span></h2>
+                <p class="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
+                    Full-Stack Engineer with over 5 years of experience building enterprise workflow platforms, asynchronous pipelines, and AI/OCR automations in <strong>Remote</strong> work environments.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://www.linkedin.com/in/fazlerabbiaka" target="_blank" class="flex items-center gap-2 px-5 py-3 border border-slate-300 rounded-xl hover:bg-slate-100 transition font-medium">
+                        <i class="fab fa-linkedin text-blue-700"></i> LinkedIn
+                    </a>
+                    <a href="mailto:akafazlerabbi@gmail.com" class="flex items-center gap-2 px-5 py-3 border border-slate-300 rounded-xl hover:bg-slate-100 transition font-medium">
+                        <i class="far fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+
+            <!-- Time Widget -->
+
+            <div id="time-widget" class="group relative overflow-hidden rounded-3xl p-8 text-white shadow-2xl transition-all duration-1000 flex flex-col justify-between min-h-[300px]">
+                <!-- Tooltip -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-[11px] font-bold py-1.5 px-3 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-30">
+                    Not Near Me? Convert time & book! 🌍✨
+                    <div class="absolute -top-1 right-4 -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+                </div>
+
+                <div class="relative z-20">
+                    <p class="text-sm font-medium opacity-80 uppercase tracking-widest mb-1">Local Time (BD)</p>
+                    <div id="clock" class="text-3xl font-bold mb-2">--:--:--</div>
+                    <p id="time-label" class="text-sm italic opacity-90"></p>
+                </div>
+                
+                <div class="relative z-20 mt-8">
+                    <div class="flex gap-2 justify-center items-center">
+                    <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=Meeting+with+Fazle+Rabbi&add=akafazlerabbi@gmail.com" target="_blank" class="block w-full bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 text-center py-3 rounded-xl font-semibold transition">
+                        <i class="far fa-calendar-alt mr-2"></i> Book a Meeting
+                    </a>
+                    <a href="time.html" class="block bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 p-3 rounded-xl">
+                        <i class="fas fa-pencil"></i>
+                    </a>
+                </div>
+                    <p class="text-[10px] mt-2 text-center opacity-70">Powered by Google Calendar</p>
+                </div>
+
+                <!-- Dynamic Background Layers -->
+                <div id="widget-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000"></div>
+                <div class="absolute inset-0 bg-black/30 z-10"></div>
+            </div>
+        </section>
+
+        <!-- About / Summary -->
+        <section id="about" class="mb-24 scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-8 section-heading">About Me</h3>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <p class="text-slate-700 text-lg">
+                    I love solving hard technical problems, building fast, and delivering real impact. My core expertise lies in designing scalable architectures using Next.js, TypeScript, and Python. I have a proven track record of migrating complex enterprise workflows to modern internal platforms, significantly reducing operational costs and technical debt.
+                </p>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="skills" class="mb-24 scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-8 section-heading">Tech Stack</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-4 bg-white rounded-xl border border-slate-200 text-center">
+                    <span class="font-bold text-blue-600 block mb-1">Languages</span>
+                    <span class="text-sm text-slate-600">Python, TypeScript, SQL</span>
+                </div>
+                <div class="p-4 bg-white rounded-xl border border-slate-200 text-center">
+                    <span class="font-bold text-blue-600 block mb-1">Backend</span>
+                    <span class="text-sm text-slate-600">FastAPI, Django, Temporal</span>
+                </div>
+                <div class="p-4 bg-white rounded-xl border border-slate-200 text-center">
+                    <span class="font-bold text-blue-600 block mb-1">Frontend</span>
+                    <span class="text-sm text-slate-600">Next.js, Tailwind CSS</span>
+                </div>
+                <div class="p-4 bg-white rounded-xl border border-slate-200 text-center">
+                    <span class="font-bold text-blue-600 block mb-1">Infrastructure</span>
+                    <span class="text-sm text-slate-600">PostgreSQL, Kubernetes, AWS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="mb-24 scroll-mt-24">
+            <h3 class="text-2xl font-bold mb-8 section-heading">Experience</h3>
+            
+            <div class="space-y-12">
+                <!-- Invisible Technologies -->
+                <div class="relative pl-8 border-l-2 border-slate-200">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-blue-600 rounded-full"></div>
+                    <div class="mb-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-1">
+                            <h4 class="text-xl font-bold">Invisible Technologies</h4>
+                            <span class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">5+ Years</span>
+                        </div>
+                        <p class="text-blue-600 font-semibold mb-2">Software Engineer III (Current)</p>
+                    </div>
+                    <ul class="space-y-3 text-slate-700 list-disc ml-4">
+                        <li>Architected automated expert provisioning workflows, reducing required L2 support staff across campaigns through dynamic role/tag mapping.</li>
+                        <li>Reduced process complexity by 4x by migrating critical enterprise workflows (e.g., Grubhub) to "Atomic" (internal workflow builder).</li>
+                        <li>Built core features for "Atomic", enabling visual design and execution of complex automated pipelines.</li>
+                        <li>Delivered custom automations for clients like DoorDash, Rhino, and Bolt to streamline operations.</li>
+                    </ul>
+                </div>
+
+                <!-- NASSA Group -->
+                <div class="relative pl-8 border-l-2 border-slate-200">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-300 rounded-full"></div>
+                    <div class="mb-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-1">
+                            <h4 class="text-xl font-bold">NASSA Group</h4>
+                            <span class="text-sm text-slate-500 italic">August 2020 - August 2021</span>
+                        </div>
+                        <p class="text-blue-600 font-semibold mb-2">Python Developer</p>
+                    </div>
+                    <ul class="space-y-3 text-slate-700 list-disc ml-4">
+                        <li>Implemented YOLOv4 deep learning models to extract tabular data from bank statements.</li>
+                        <li>Developed a national ID (NID) OCR engine using Tesseract for automated document parsing.</li>
+                        <li>Built a custom print server backend using low-level socket programming.</li>
+                    </ul>
+                </div>
+
+                <!-- Chosun University -->
+                <div class="relative pl-8 border-l-2 border-slate-200">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-300 rounded-full"></div>
+                    <div class="mb-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-1">
+                            <h4 class="text-xl font-bold">Chosun University</h4>
+                            <span class="text-sm text-slate-500 italic">2018 - 2020</span>
+                        </div>
+                        <p class="text-blue-600 font-semibold mb-2">Graduate Research Assistant</p>
+                    </div>
+                    <p class="text-slate-700">Focused on circuit-level implementation of RF receiver building blocks and FPGA company projects.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Honors -->
+        <section id="education" class="grid md:grid-cols-2 gap-12 mb-24 scroll-mt-24">
+            <div>
+                <h3 class="text-2xl font-bold mb-8 section-heading">Education</h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-bold">M.Sc. Information Technology Engineering</h4>
+                        <p class="text-slate-600 italic">Chosun University, Korea (2018 - 2020)</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">B.Sc. Electrical and Electronics Engineering</h4>
+                        <p class="text-slate-600 italic">BRAC University, Bangladesh (2012 - 2016)</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-8 section-heading">Honors & Awards</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-award text-blue-600 mt-1"></i>
+                        <span>100 member youth Delegation to INDIA</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-file-alt text-blue-600 mt-1"></i>
+                        <div>
+                            <span class="font-medium block">Publication:</span>
+                            <span class="text-sm text-slate-600 italic">Exploring the Opportunities of a Balloon-Satellite in Bangladesh for Weather Data Collection and Vegetative Analysis</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p class="text-slate-500 text-sm">© 2024 Fazle Rabbi. Built with Tailwind CSS.</p>
+            <div class="flex gap-6 text-slate-400">
+                <a href="https://www.linkedin.com/in/fazlerabbiaka" class="hover:text-blue-600 transition"><i class="fab fa-linkedin text-xl"></i></a>
+                <a href="mailto:akafazlerabbi@gmail.com" class="hover:text-blue-600 transition"><i class="far fa-envelope text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const options = { timeZone: 'Asia/Dhaka', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const bdTimeString = new Intl.DateTimeFormat('en-US', options).format(now);
+            
+            document.getElementById('clock').textContent = bdTimeString;
+
+            const hour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', hour: '2-digit', hour12: false }).format(now));
+            const widgetBg = document.getElementById('widget-bg');
+            const label = document.getElementById('time-label');
+
+            let bgImg = '';
+            let text = '';
+
+            if (hour >= 5 && hour < 8) {
+                bgImg = 'url("https://images.unsplash.com/photo-1642019247215-639093b12ded?auto=format&fit=crop&w=1600&q=80")';
+                text = 'Dawn in Dhaka';
+            } else if (hour >= 8 && hour < 17) {
+                bgImg = 'url("https://images.unsplash.com/photo-1744080213179-d4e58780ec5a?auto=format&fit=crop&w=1600&q=80")';
+                text = 'Working Hours (BD)';
+            } else if (hour >= 17 && hour < 20) {
+                bgImg = 'url("https://images.unsplash.com/photo-1629818985490-d161fc7c11b3?auto=format&fit=crop&w=1600&q=80")';
+                text = 'Golden Hour in Dhaka';
+            } else {
+                bgImg = 'url("https://images.unsplash.com/photo-1616400557946-8a556f8809d7?auto=format&fit=crop&w=1600&q=80")';
+                text = 'Evening in Dhaka';
+            }
+
+            widgetBg.style.backgroundImage = bgImg;
+            label.textContent = text;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
