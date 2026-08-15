@@ -133,7 +133,7 @@
             // Update Booking Link with UTC dates (1-hour duration)
             const startUTC = selectedDate.toISOString().replace(/[:\-]|\.\d{3}/g, '');
             const endUTC = new Date(selectedDate.getTime() + 3600000).toISOString().replace(/[:\-]|\.\d{3}/g, '');
-            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}`;
+            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}&add=akafazlerabbi@gmail.com`;
         }
 
         input.addEventListener('change', updateConversion);
