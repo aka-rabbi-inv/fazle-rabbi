@@ -40,7 +40,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-sm font-medium mb-2 opacity-80 uppercase tracking-wider">Your Local Time</label>
-                        <input type="datetime-local" id="local-input" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 outline-none focus:border-white/50 transition">
+                        <input type="datetime-local" id="local-input" class="w-full bg-white/50 text-center border border-white/20 rounded-xl px-4 py-3 outline-none focus:border-white/50 transition">
                     </div>
 
                     <a id="booking-link" href="https://calendar.google.com/calendar/u/0/r/eventedit?" target="_blank" class="block w-full bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 text-center py-3 rounded-xl font-semibold transition">
@@ -133,7 +133,7 @@
             // Update Booking Link with UTC dates (1-hour duration)
             const startUTC = selectedDate.toISOString().replace(/[:\-]|\.\d{3}/g, '');
             const endUTC = new Date(selectedDate.getTime() + 3600000).toISOString().replace(/[:\-]|\.\d{3}/g, '');
-            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}&add=akafazlerabbi@gmail.com`;
+            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}`;
         }
 
         input.addEventListener('change', updateConversion);
