@@ -21,6 +21,7 @@
             height: 2px;
             background: #3b82f6;
         }
+        .glass { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 leading-relaxed">
@@ -34,7 +35,6 @@
                 <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
                 <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
                 <a href="#education" class="hover:text-blue-600 transition">Education</a>
-                <a href="time.html" class="hover:text-blue-600 transition font-bold text-blue-500">Book Time</a>
             </div>
             <a href="mailto:akafazlerabbi@gmail.com" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">Contact Me</a>
         </nav>
@@ -83,9 +83,9 @@
                     <a href="https://calendar.google.com/calendar/u/0/r/eventedit?text=Meeting+with+Fazle+Rabbi&add=akafazlerabbi@gmail.com" target="_blank" class="block w-full bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 text-center py-3 rounded-xl font-semibold transition">
                         <i class="far fa-calendar-alt mr-2"></i> Book a Meeting
                     </a>
-                    <a href="time.html" class="block bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 p-3 rounded-xl">
+                    <button id="open-modal-btn" type="button" class="block bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 p-3 rounded-xl transition">
                         <i class="fas fa-pencil"></i>
-                    </a>
+                    </button>
                 </div>
                     <p class="text-[10px] mt-2 text-center opacity-70">Powered by Google Calendar</p>
                 </div>
@@ -219,6 +219,49 @@
 
     </main>
 
+    <!-- Time Widget Edit Modal -->
+    <div id="time-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-opacity">
+        <div class="group relative overflow-hidden min-h-[420px] rounded-3xl w-full max-w-2xl">
+            
+            <button id="close-modal" class="absolute top-5 right-5 hidden z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 transition text-white">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <a href="time.html" title="Open the time converter tool" target="_blank" class="absolute top-5 right-7 z-30 hover:text-red-500 transition font-bold text-red-300">
+                <i class="fas fa-xl fa-external-link-square"></i>
+            </a>
+
+
+            <div class="relative z-20 glass rounded-3xl p-8 md:p-12 shadow-xl">
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-white/90 text-sm font-medium mb-2 opacity-80 uppercase tracking-wider">Your Local Time</label>
+                    <input type="datetime-local" id="local-input" class="w-full text-center bg-white/50 border border-white/20 rounded-xl px-4 py-3 outline-none focus:border-white/50 transition">
+                </div>
+
+                <a id="booking-link" href="https://calendar.google.com/calendar/u/0/r/eventedit?" target="_blank" class="block text-white/90 w-full bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/30 text-center py-3 rounded-xl font-semibold transition">
+                    <i class="far fa-calendar-alt mr-2"></i> Schedule at This Time
+                </a>
+
+
+                <div class="flex justify-center">
+                    <div class="h-8 w-px bg-white/20"></div>
+                </div>
+
+                <div class="text-white/90 bg-white/5 rounded-2xl p-8 text-center border border-white/10">
+                    <div id="target-time" class="text-3xl md:text-4xl font-bold">--:--</div>
+                    <p id="target-label" class="text-sm mt-2 font-medium opacity-90"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Background Layers -->
+        <div id="modal-widget-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000"></div>
+        <div class="absolute inset-0 bg-black/30 z-10"></div>
+    </div>
+</div>
+
     <footer class="bg-white border-t border-slate-200 py-12">
         <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <p class="text-slate-500 text-sm">© 2024 Fazle Rabbi. Built with Tailwind CSS.</p>
@@ -231,6 +274,69 @@
     </footer>
 
     <script>
+        const now = new Date();
+
+        const sunriseImage = "https://images.unsplash.com/photo-1642019247215-639093b12ded?auto=format&fit=crop&w=1600&q=80"
+        const dayImage = "https://images.unsplash.com/photo-1744080213179-d4e58780ec5a?auto=format&fit=crop&w=1600&q=80"
+        const sunsetImage = "https://images.unsplash.com/photo-1629818985490-d161fc7c11b3?auto=format&fit=crop&w=1600&q=80"
+        const nightImage = "https://images.unsplash.com/photo-1616400557946-8a556f8809d7?auto=format&fit=crop&w=1600&q=80"
+
+        const hour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', hour: '2-digit', hour12: false }).format(now));
+
+        const widgetBg = document.getElementById('widget-bg');
+        widgetBg.style.backgroundImage = getBgImage(hour);
+
+        const modal = document.getElementById('time-modal');
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.getElementById('close-modal');
+
+
+        const input = document.getElementById('local-input');
+        input.value = '';
+
+        const targetDisplay = document.getElementById('target-time');
+        const targetLabel = document.getElementById('target-label');
+        const bookingLink = document.getElementById('booking-link');
+        const body = document.body;
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        input.addEventListener('change', updateConversion);
+        updateConversion();
+
+
+        // Modal Toggle Logic
+        openBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.add('flex');
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                modal.classList.add('flex');
+        }
+        });
+
+        function getBgImage(hour) {
+            let bgImg;
+
+            if (hour >= 5 && hour < 8) {
+                bgImg = `url(${sunriseImage})`;;
+            } else if (hour >= 8 && hour < 17) {
+                bgImg = `url(${dayImage})`;;
+            } else if (hour >= 17 && hour < 20) {
+                bgImg = `url(${sunsetImage})`;;
+            } else {
+                bgImg = `url(${nightImage})`;;
+            }
+            return bgImg;
+        }
+
         function updateTime() {
             const now = new Date();
             const options = { timeZone: 'Asia/Dhaka', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -246,25 +352,70 @@
             let text = '';
 
             if (hour >= 5 && hour < 8) {
-                bgImg = 'url("https://images.unsplash.com/photo-1642019247215-639093b12ded?auto=format&fit=crop&w=1600&q=80")';
                 text = 'Dawn in Dhaka';
             } else if (hour >= 8 && hour < 17) {
-                bgImg = 'url("https://images.unsplash.com/photo-1744080213179-d4e58780ec5a?auto=format&fit=crop&w=1600&q=80")';
                 text = 'Working Hours (BD)';
             } else if (hour >= 17 && hour < 20) {
-                bgImg = 'url("https://images.unsplash.com/photo-1629818985490-d161fc7c11b3?auto=format&fit=crop&w=1600&q=80")';
                 text = 'Golden Hour in Dhaka';
             } else {
-                bgImg = 'url("https://images.unsplash.com/photo-1616400557946-8a556f8809d7?auto=format&fit=crop&w=1600&q=80")';
-                text = 'Evening in Dhaka';
+                text = 'Night time in Dhaka';
             }
 
-            widgetBg.style.backgroundImage = bgImg;
             label.textContent = text;
         }
 
-        setInterval(updateTime, 1000);
-        updateTime();
+
+        function updateConversion() {
+            if (!input.value) return;
+
+            const selectedDate = new Date(input.value);
+            const targetOptions = { 
+                timeZone: "Asia/Dhaka", 
+                hour12: true, 
+                hour: '2-digit', 
+                minute: '2-digit',
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            };
+            
+            const targetTimeStr = new Intl.DateTimeFormat('en-US', targetOptions).format(selectedDate);
+            targetDisplay.textContent = targetTimeStr;
+            const targetHour = parseInt(new Intl.DateTimeFormat('en-US', { 
+                timeZone: "Asia/Dhaka", 
+                hour: '2-digit', 
+                hour12: false 
+            }).format(selectedDate));
+
+            let bgImg = '';
+            let statusText = '';
+
+            if (targetHour >= 5 && targetHour < 8) {
+                bgImg = getBgImage(targetHour);
+                statusText = `Sunrise in Dhaka 🌅`;
+            } else if (targetHour >= 8 && targetHour < 17) {
+                bgImg = getBgImage(targetHour);
+                statusText = `Day time in Dhaka ☀️`;
+            } else if (targetHour >= 17 && targetHour < 20) {
+                bgImg = getBgImage(targetHour);
+                statusText = `Sunset in Dhaka 🌇`;
+            } else {
+                bgImg = getBgImage(targetHour);
+                statusText = `Night time in Dhaka 🌙`;
+            }
+
+            const el = document.getElementById('modal-widget-bg');
+            if (el) {
+                el.style.backgroundImage = bgImg;
+            }
+            targetLabel.textContent = statusText;
+
+            // Update Booking Link with UTC dates (1-hour duration)
+            const startUTC = selectedDate.toISOString().replace(/[:\-]|\.\d{3}/g, '');
+            const endUTC = new Date(selectedDate.getTime() + 3600000).toISOString().replace(/[:\-]|\.\d{3}/g, '');
+            bookingLink.href = `https://calendar.google.com/calendar/u/0/r/eventedit?dates=${startUTC}/${endUTC}&add=akafazlerabbi@gmail.com`;
+        }
+
     </script>
 </body>
 </html>
