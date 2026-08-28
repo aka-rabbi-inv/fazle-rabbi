@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eXp Realty — Compliance Automation</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #1f2937;
+      line-height: 1.65;
+    }
+
+    .section-heading {
+      letter-spacing: -0.025em;
+    }
+
+    .project-card {
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .workflow-image {
+      transition: transform 0.35s ease;
+    }
+
+    .workflow-wrapper:hover .workflow-image {
+      transform: scale(1.01);
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
+
+    <!-- Project -->
+    <section id="exp-realty" class="scroll-mt-24">
+
+    <a href="../index.html" class="text-2xl absolute top-4 left-5 text-slate-600 mb-5">
+        ⬅
+    </a>
+
+      <!-- Intro -->
+      <div class="max-w-3xl space-y-4 mb-8">
+        <p class="text-base md:text-lg leading-relaxed text-slate-600">
+          I built and deployed an
+          <span class="font-medium text-slate-900">AI-powered compliance automation workflow</span>
+          for eXp Realty, helping automate a complex listing compliance process
+          across multiple regions.
+        </p>
+
+        <p class="text-base md:text-lg leading-relaxed text-slate-600">
+          The system combines deterministic workflow orchestration with agentic AI,
+          using agentic flows to analyze listing documentation and perform
+          region-specific compliance checks.
+        </p>
+      </div>
+
+      <!-- Workflow image -->
+      <div
+        class="workflow-wrapper group overflow-hidden rounded-2xl border border-slate-200
+               bg-white p-2 mb-10 transition-shadow duration-300
+               hover:shadow-lg"
+      >
+        <img
+          src="../static/exp.png"
+          alt="eXp Realty compliance automation workflow"
+          class="workflow-image block w-full h-auto rounded-xl"
+        >
+      </div>
+
+      <!-- What I built -->
+      <div class="project-card bg-white rounded-2xl border border-slate-200 p-7 md:p-8">
+
+        <h2 class="text-xl font-semibold text-slate-900 mb-6">
+          What I built
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-x-10 gap-y-4">
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Automated ingestion and processing of listing data from Google Sheets
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Integration with SkySlope to retrieve listing and checklist documents
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Agentic AI flows to analyze supporting documents and perform compliance checks
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Automated validation of mandatory documentation
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Conditional routing based on listing status, region, and compliance results
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Human-in-the-loop QA for cases requiring review
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Automated operational task creation and follow-up workflows
+            </p>
+          </div>
+
+          <div class="flex gap-3">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Persistent status and reviewer updates back into the operational data source
+            </p>
+          </div>
+
+          <div class="flex gap-3 md:col-span-2">
+            <span class="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-indigo-500"></span>
+            <p class="text-slate-600">
+              Retry and outreach logic to handle listings requiring subsequent action
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Closing statement -->
+        <div class="mt-8 pt-7 border-t border-slate-100">
+          <p class="text-slate-600 leading-relaxed">
+            The goal wasn't simply to
+            <span class="font-semibold text-slate-900">add AI to an existing process</span>.
+            It was to build a reliable agentic system around a real business workflow,
+            combining AI decision-making with deterministic controls and human oversight.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
